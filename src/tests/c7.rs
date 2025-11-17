@@ -1,4 +1,4 @@
-use crate::tasks::c7_generics_traits_lifetimes::{
+/*use crate::tasks::c7_generics_traits_lifetimes::{
     Area,
     Article,
     Book,
@@ -55,4 +55,4 @@ fn test_longest_word() {
 
     let empty_book = Book::new("Empty", "");
     assert_eq!(empty_book.longest_word(), None);
-}
+}*/

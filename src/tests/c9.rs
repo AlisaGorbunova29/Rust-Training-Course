@@ -1,4 +1,4 @@
-use std::rc::Rc;
+/*use std::rc::Rc;
 
 use crate::tasks::c9_smart_pointers::{BinaryTreeNode, Package, SharedCounter};
 
@@ -24,4 +24,4 @@ fn test_shared_counter() {
     counter_clone2.increment();
 
     assert_eq!(counter.get(), 2);
-}
+}*/

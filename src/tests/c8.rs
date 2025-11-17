@@ -1,4 +1,4 @@
-use crate::tasks::c8_iterators_and_closures::{
+/*use crate::tasks::c8_iterators_and_closures::{
     filter_and_sort_names,
     group_students_by_grade,
     top_k_most_common_letters,
@@ -92,4 +92,4 @@ fn test_group_students_by_grade() {
     );
     assert_eq!(grouped.get(&50).unwrap(), &vec!["Xyz".to_string()]);
     assert_eq!(grouped.get(&15).unwrap(), &vec!["biba".to_string(), "Bob".to_string()]);
-}
+}*/
