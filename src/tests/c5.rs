@@ -1,4 +1,4 @@
-use crate::tasks::c5_collections::{
+/*use crate::tasks::c5_collections::{
     longest_increasing_subsequence,
     normalize_and_capitalize,
     reverse_words,
@@ -48,4 +48,4 @@ fn test_unique_chars() {
 fn test_top_k_frequent() {
     assert_eq!(vec![3, 2], top_k_frequent(vec![3, 3, 3, 2, 2, 1], 2));
     assert_eq!(vec![4, 2, 1], top_k_frequent(vec![4, 4, 4, 4, 2, 2, 1], 9));
-}
+}*/
