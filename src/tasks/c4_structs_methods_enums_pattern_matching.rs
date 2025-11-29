@@ -9,11 +9,22 @@
 
 // IMPLEMENT HERE:
 
+use chrono::Datelike;
+
+pub struct Point {
+    x: u32,
+    y: u32,
+}
+
+pub fn new_point(x: u32, y: u32) -> Point {
+    Point { x, y }
+}
+
 // uncomment once implemented
-// pub fn point_checker() {
-//     let point = new_point(3, 4);
-//     assert_eq!((3, 4), (point.x, point.y));
-// }
+pub fn point_checker() {
+    let point = new_point(3, 4);
+    assert_eq!((3, 4), (point.x, point.y));
+}
 
 // ----- 2 --------------------------------------
 // Define a struct `Rectangle` with width and height. Implement a function
@@ -22,14 +33,24 @@
 
 // IMPLEMENT HERE:
 
-// uncomment once implemented
-// pub fn rectangle_checker() {
-//     let big = Rectangle { width: 10, height: 8 };
-//     let small = Rectangle { width: 5, height: 4 };
+pub struct Rectangle {
+    width: u32,
+    height: u32,
+}
 
-//     assert!(can_hold(&big, &small));
-//     assert!(!can_hold(&small, &big));
-// }
+pub fn can_hold(r1: &Rectangle, r2: &Rectangle) -> bool {
+    (r1.width >= r2.width && r1.height >= r2.height)
+        || (r1.width >= r2.height && r1.height >= r2.width)
+}
+
+// uncomment once implemented
+pub fn rectangle_checker() {
+    let big = Rectangle { width: 10, height: 8 };
+    let small = Rectangle { width: 5, height: 4 };
+
+    assert!(can_hold(&big, &small));
+    assert!(!can_hold(&small, &big));
+}
 
 // METHODS
 // ================================================================================================
@@ -42,6 +63,24 @@
 
 // IMPLEMENT HERE:
 
+pub struct Company {
+    name: String,
+    date_of_origin: u32,
+    annual_income: u64,
+}
+
+impl Company {
+    pub fn new(name: String, date_of_origin: u32, annual_income: u64) -> Self {
+        Self { name, date_of_origin, annual_income }
+    }
+    pub fn total_income(&self) -> u64 {
+        let now = chrono::Utc::now();
+        let now_year = now.year() as u64;
+        let date_of_origin_u64 = self.date_of_origin as u64;
+        self.annual_income * (now_year - date_of_origin_u64)
+    }
+}
+
 // ----- 4 --------------------------------------
 // Define a struct BankAccount with `owner: String` and `balance: u64` fields.
 // Implement basic `new(...) -> Self` constructor.
@@ -53,6 +92,31 @@
 
 // IMPLEMENT HERE:
 
+pub struct BankAccount {
+    owner: String,
+    balance: u64,
+}
+
+impl BankAccount {
+    pub fn new(owner: String, balance: u64) -> Self {
+        Self { owner, balance }
+    }
+    pub fn deposit(&mut self, amount: u64) {
+        self.balance += amount;
+    }
+    pub fn withdraw(&mut self, amount: u64) -> bool {
+        if self.balance >= amount {
+            self.balance -= amount;
+            true
+        } else {
+            false
+        }
+    }
+    pub fn balance(&self) -> u64 {
+        self.balance
+    }
+}
+
 // ENUMS
 // ================================================================================================
 
@@ -63,6 +127,22 @@
 
 // IMPLEMENT HERE:
 
+pub enum TrafficLight {
+    Red,
+    Yellow,
+    Green,
+}
+
+impl TrafficLight {
+    pub fn next(&self) -> TrafficLight {
+        match self {
+            TrafficLight::Red => TrafficLight::Green,
+            TrafficLight::Yellow => TrafficLight::Red,
+            TrafficLight::Green => TrafficLight::Yellow,
+        }
+    }
+}
+
 // ----- 6 --------------------------------------
 // Define an enum `Operation` with variants `Add(i32, i32)`, `Subtract(i32, i32)`,
 // `Multiply(i32, i32)` and `Divide(i32, i32)`. Implement a method
@@ -70,6 +150,30 @@
 // dividing by zero (you can use `match` for convenience)
 
 // IMPLEMENT HERE:
+
+pub enum Operation {
+    Add(i32, i32),
+    Subtract(i32, i32),
+    Multiply(i32, i32),
+    Divide(i32, i32),
+}
+
+impl Operation {
+    pub fn apply(self) -> Option<i32> {
+        match self {
+            Operation::Add(a, b) => Some(a + b),
+            Operation::Subtract(a, b) => Some(a - b),
+            Operation::Multiply(a, b) => Some(a * b),
+            Operation::Divide(a, b) => {
+                if b == 0 {
+                    None
+                } else {
+                    Some(a / b)
+                }
+            },
+        }
+    }
+}
 
 // PATTERN MATCHING
 // ================================================================================================
@@ -86,6 +190,24 @@
 
 // IMPLEMENT HERE:
 
+pub enum WeirdLengthMeasures {
+    Inch,
+    Foot,
+    Yard,
+    Mile,
+}
+
+impl WeirdLengthMeasures {
+    pub fn convert_to_human_format(&self) -> f64 {
+        match self {
+            Self::Inch => 0.0254,
+            Self::Foot => 0.3048,
+            Self::Yard => 0.9144,
+            Self::Mile => 1609.344,
+        }
+    }
+}
+
 // ----- 8 --------------------------------------
 // Write a function `fizzbuzz(n: u32) -> Vec<String>` that returns a vector of strings from 1 to n
 // where:
@@ -95,5 +217,17 @@
 // - Otherwise the number itself.
 
 pub fn fizzbuzz(n: u32) -> Vec<String> {
-    !unimplemented!()
+    let mut res = Vec::new();
+    for i in 1..n + 1 {
+        if i % 6 == 0 {
+            res.push(String::from("FizzBuzz"));
+        } else if i % 3 == 0 {
+            res.push(String::from("Buzz"));
+        } else if i % 2 == 0 {
+            res.push(String::from("Fizz"));
+        } else {
+            res.push(i.to_string())
+        }
+    }
+    res
 }
